@@ -343,7 +343,7 @@ FORGE.ControllerPointer.prototype._wheelHandler = function(event)
         delta *= (event.data.deltaY * factorDeltaY) / 5;
     }
 
-    var logZoomFactor = this._camera.fov / (Math.LN2 * 90);
+    var logZoomFactor = Math.min(1, this._camera.fov / 90) / Math.LN2;
     this._camera.fov -= delta * logZoomFactor;
     this.log("_wheelHandler (fov:" + this._camera.fov + ")");
 };
@@ -410,7 +410,7 @@ FORGE.ControllerPointer.prototype.update = function()
     var size = this._viewer.renderer.displayResolution;
     var hardness = 1 / (this._orientation.hardness * Math.min(size.width, size.height));
 
-    var logZoomFactor = this._camera.fov / (Math.LN2 * 90);
+    var logZoomFactor = Math.min(1, this._camera.fov / 90) / Math.LN2;
 
     this._velocity.subVectors(this._positionCurrent, this._positionStart);
 
